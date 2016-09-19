@@ -1,0 +1,160 @@
+                 GCUA:General Codon Usage Analysis v1.0
+                                  by 
+                           James McInerney,
+                     The Natural History Museum,
+                             Cromwell Road,
+                            London, SW7 5BD.
+                         j.mcinerney@nhm.ac.uk
+                  Available from ftp://ftp.nhm.ac.uk/
+
+Read in a Fasta-formatted file.
+The FastA (or Pearson) format is the simplest method of representing molecular 
+sequence data.  On one line is the name of the gene (or organism), preceeded by
+a '>' (no parentheses).  The sequence data begins on the next line.  The next 
+sequence is identified by the '>'.  If your data is in a different format, you
+can use Readseq by Don Gilbert to reformat the data into FastA format.  Readseq
+is available from the IUBIO archive: http://www.iubio.indiana.edu/
+ 
+Calculate codon usage.
+The purpose of this function is to calculate the Number (N) of times a 
+particular codon is observed in a gene or set of genes and also to calculate the 
+Relative Synonymous Codon Usage (RSCU) values for the dataset. RSCU values are
+the number of times a particular codon is observed, relative to the number of 
+times that the codon would be observed in the absence of any codon usage bias.
+In the absence of any codon usage bias, the RSCU value would be 1.00.  A codon 
+that is used less frequently than expected will have a value of less than 1.00 
+and vice versa for a codon that is used more frequently than expected.
+
+Amino Acid usage.
+The program also calculates Amino acid usage frequency and outputs the
+information as the observed number (N) of times that a particular Amino acid is
+used and the percentage of the protein that is made up by that particular Amino
+acid.  The stop codons are included in the output, even though they are 
+not amino acids.
+
+Multivariate Analysis.
+This is a method of pattern investigation that attempts to reduce 
+a complex dataset to a form where it is easier to analyse the data. Formally 
+(or semi-formally) it attempts to reduce a high-dimensional space to a lower
+dimension space. In this program, either the RSCU values or the relative amino 
+acid frequency values are fed into the Multivariate analysis functions.  
+Each gene is defined by a vector composed of N parts (each of the codons 
+for which there is a synonymous alternative, N is equal to 59 in the case of 
+the universal code and 61 in the case of the Mycoplasma/Spiroplasma genetic 
+code, 20 in the case of amino acid data).  One could plot each of the genes 
+positions on the N-dimensional space.  The result would probably resemble 
+some kind of 'cloud'. Multivariate analyses seek to find the axis onto which 
+the points (vectors) can be projected such that the greatest amount of 
+dispersion in the data can be viewed.  Usually, there are a small number of 
+axes that can be created that can be said to represent a large amount of the 
+variation in the dataset. If there is no codon usage bias in the dataset, then 
+the 'cloud' would probably be almost spherical whereas, in the presence of a 
+codon usage bias, the 'cloud' would be elongated. Plotting the two major sources
+of variation against one another can help to reveal this bias.So why perform 
+this analysis?  Well, we can use this kind of analysis to investigate what 
+forces are governing codon usage bias.
+Typical questions:
+1.	Is it simply base composition?  In other words, do the genes at one
+end of the most important axis (axis 1) have a different base composition than
+the genes at the other end?
+You can find this out by plotting the base composition data against the PCA 
+axes.
+2.	Is there a correlation with position on the chromosome(s).
+Again, if you have the positional information, plot the data and find out.
+3.	Is there some correlation with gene expression?
+If you have the expression data, then see if the highly expressed genes are at
+one end of any of the axes, maybe they are using a different subset of codons
+that the lowly expressed genes.
+4.	Is there some kind of correlation with amino acid composition?
+Only one way to find out....
+
+Distances.
+This is a function that I have included, although I have no idea whether it has
+any relative merits.  It calculates a pairwise distance between each of the
+genes on the basis of the similarity of their RSCU values.  In other words it
+calculates the difference between the RSCU values for UUU for gene1 and for UUU 
+for gene2 and adds this to the difference in RSCU values for UUC and so on for
+the 59 codons for which there is an alternative synonym.  It then divides the
+total by 59, so that we have the average difference in RSCU values.  This is 
+the distance between gene1 and gene2.  The output is either PAUP* (PAUP v 4.0) 
+or PHYLIP compatible. (PAUP* will soon be available from Sinauer Associates, it is 
+presently in a testing phase, PHYLIP is available from Joe Felsenstein at 
+http://evolution.genetics.washington.edu/).  You can then draw 'trees' based on
+these distances.  I'm not sure what the results are going to tell you, but if 
+you work it out, let me know.  THIS IS NOT A KNOWN AND RECOGNISED EVOLUTIONARY 
+DISTANCE METHOD, TREES GENERATED BY THIS METHOD DO NOT NECESSARILY REFLECT
+EVOLUTIONARY HISTORIES, RATHER THEY ARE CLUSTERED BY VIRTUE OF SIMILARITY OF 
+RSCU VALUES!!
+
+Current limits and Future Direction.
+At present the limit to the number of genes that can be in any one file is 5000,
+but subsequent versions will be able to handle many more sequences.  The limit
+to the length of any one sequence is 15000 bp and only the first 10 characters
+in the sequence name are retained (Gene names REALLY don't need to be any 
+longer, do they?).  The program does not do extensive checking of the format so
+it relies for a little work on the part of the lab-rat (that's us students and
+post-docs, btw). The memory requirements are set to 6 Mb.  I've tested the 
+program on the complete cyanobacterial genome (3,000+ genes).
+
+I have added an option for writing a file to disk in ADE format.  ADE
+is an extensive package of multivariate analysis programs, far more 
+sophisticated than those that are presented here. ADE can be obtained from:
+
+http://biomserv.univ-lyon1.fr/ADE-4.html and is a macintosh program.
+http://biomserv.univ-lyon1.fr/NetMul.html is an installed web version.
+
+Most of the results from GCUA can be directly imported into a spreadsheet
+program such as Cricket Graph (its the only one I've got).  The column titles 
+are on the first line and the data are tab-delimited.  If you can set the 
+preferences in ther spreadsheet program to recognise this format, then you can
+probably successfully interface the two programs.  The macintosh version writes
+the output in either Cricket graph or BBEdit format, so you just need to double
+click on the icon, if you have the programs installed on your computer.
+
+I'm hoping to make the program more useful, and I shall try to get it to
+calculate more interesting codon usage statistics in the future.  This is just
+completion of stage one.  Many thanks to my friend Mozart in Brazil who (unknown
+to him) prompted me to write this program and to Richard Thomas here at the
+museum for all his help and advise on C.
+
+Please feel free to distribute this program to anybody who would like a copy.
+DO NOT CHARGE THEM FOR IT and include the codon.hlp file in an UNALTERED
+state!!!
+
+Just send me an email to let me know that you have a copy (so that I can include
+you in any anouncements of new releases). If it is of some use, it would be
+appreciated if you would mention using the program in your papers and also I
+would appreciate a reprint.  
+
+Disclaimer!!
+
+I can accept no responsibility whatsoever for anything that this program does 
+with your data.  I have checked its faithfulness as much as I can, but I can
+make no guarantees about any aspect of the program. I repeat, I cannot 
+guarantee anything about this program.
+
+Disclaimer
+
+THE NATURAL HISTORY MUSEUM, AND THE AUTHOR, 
+JAMES MCINERNEY GIVE NO WARRANTIES, EXPRESSED 
+OR IMPLIED FOR THE SOFTWARE AND 
+DOCUMENTATION PROVIDED, INCLUDING, 
+BUT NOT LIMITED TO WARRANTY OF 
+MERCHANTABILITY AND WARRANTY OF 
+FITNESS FOR A PARTICULAR PURPOSE.  
+User understands the software is a research tool for 
+which no warranties as to capabilities or accuracy are 
+made, and user accepts the software "as is."  User 
+assumes the entire risk as to the results and 
+performance of the software and documentation.  The 
+above parties cannot be held liable for any direct, 
+indirect, consequential or incidental damages with 
+respect to any claim by user or any third party on 
+account of, or arising from the use of software and 
+associated materials.
+
+Let me know of any problems or suggestions.
+
+
+
+
