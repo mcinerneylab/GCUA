@@ -11,7 +11,7 @@
 /********************************defines*****/
 
 #define MAXGENLEN 2000000     /*Max length of a gene*/
-#define MAXNAMLEN 20        /*Max length of gene name*/
+#define MAXNAMLEN 200        /*Max length of gene name*/
 #define MAXNUMGEN 5000000      /*Max number of genes in a single analysis*/
 #define BANNER "\n***************************************************************\n*************GCUA: General Codon Usage Analysis****************\n***************************************************************\n\n"
 #define progname "GCUA: General Codon Usage Analysis\n"
