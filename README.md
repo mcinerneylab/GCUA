@@ -12,13 +12,13 @@ The program can handle "genes" of length 2 million bp and it can handle 5 millio
 
 If this memory requirement is too big, then you can either change this line in codon.h:
 
-###define MAXGENLEN 2000000     /*Max length of a gene*/
+&#35;define MAXGENLEN 2000000     /*Max length of a gene*/
 
 - if you dont have genes of length 2 million bp
 
 or this line
 
-###define MAXNUMGEN 5000000      /*Max number of genes in a single analysis*/
+&#35;define MAXNUMGEN 5000000      /*Max number of genes in a single analysis*/
 
  - if you have fewer than 5 million genes.
 
