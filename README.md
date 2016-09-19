@@ -16,7 +16,7 @@ If this memory requirement is too big, then you can either change this line in c
   #define MAXGENLEN 2000000     /*Max length of a gene*/
 ~~~
 
-if you dont have genes of length 2 million bp.
+if you don't have genes of length 2 million bp.
 
 or this line
 ~~~
